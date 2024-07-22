@@ -13,7 +13,7 @@ class Brand extends Model
     use HasFactory;
     use HasSlug;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'image'];
 
     public function products()
     {
@@ -27,4 +27,5 @@ class Brand extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+    
 }
