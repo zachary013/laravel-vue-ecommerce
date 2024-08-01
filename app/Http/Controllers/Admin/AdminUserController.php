@@ -3,110 +3,69 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AdminUserController extends Controller
 {
-    /**
-     * Display a listing of users.
-     *
-     * @return \Inertia\Response
-     */
     public function index()
     {
-        $users = User::all();
-        return Inertia::render('Admin/User/Index', [
-            'users' => $users,
-        ]);
+        $users = User::all(); // You may want to paginate this depending on your needs
+
+        return Inertia::render(
+            'Admin/User/Index',
+            [
+                'users' => $users
+            ]
+        );
     }
 
-    /**
-     * Store a newly created user.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
+            'isAdmin' => 'sometimes|boolean', // Validate as boolean
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'isAdmin' => $request->isAdmin ?? 0,
+            'password' => bcrypt($request->password),
+            'isAdmin' => $request->isAdmin ?? false, // Handle boolean conversion
         ]);
 
-        return redirect()->route('admin.users.index'); // Ensure this matches the route name
+        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Display the specified user.
-     *
-     * @param \App\Models\User $user
-     * @return \Inertia\Response
-     */
-    public function show(User $user)
+    public function update(Request $request, $id)
     {
-        return Inertia::render('Admin/User/Show', [
-            'user' => $user,
-        ]);
-    }
+        $user = User::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified user.
-     *
-     * @param \App\Models\User $user
-     * @return \Inertia\Response
-     */
-    public function edit(User $user)
-    {
-        return Inertia::render('Admin/User/Edit', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * Update the specified user in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, User $user)
-    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8',
+            'password' => 'nullable|string|min:8|confirmed',
+            'isAdmin' => 'sometimes|boolean', // Validate as boolean
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
-            'isAdmin' => $request->isAdmin ?? $user->isAdmin,
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'isAdmin' => $request->has('isAdmin') ? $request->isAdmin : $user->isAdmin,
         ]);
 
-        return redirect()->route('admin.users.index'); // Ensure this matches the route name
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
 
-    /**
-     * Remove the specified user from storage.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.users.index'); // Ensure this matches the route name
+
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
 }

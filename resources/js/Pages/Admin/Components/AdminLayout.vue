@@ -1,12 +1,12 @@
 <template>
-  <div class="antialiased bg-gray-50 dark:bg-gray-900">
+  <div class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
     <!-- Navbar -->
     <Navbar />
     <!-- Sidebar -->
     <Sidebar />
     <!-- End -->
 
-    <main class="p-4 md:ml-64 h-auto pt-20">
+    <main class="p-4 md:ml-64 flex-grow pt-20">
       <slot />
     </main>
   </div>
@@ -23,3 +23,10 @@ onMounted(() => {
   initFlowbite();
 });
 </script>
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+</style>

@@ -7,7 +7,7 @@ const auth = usePage().props.auth;
 const cart = computed(() => usePage().props.cart);
 </script>
 <template>
-    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <nav class="bg-primary-200 border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link :href="route('home')" class="flex items-center justify-between mr-4">
             <img src="/images/logo1.png" class="mr-3 h-8" alt="Cloe Logo" />
@@ -17,40 +17,51 @@ const cart = computed(() => usePage().props.cart);
                 <div class="mr-4">
 
                     <Link :href="route('cart.view')"
-                        class="relative inline-flex items-center p-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6 ">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                    </svg>
+                        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-primary-100 rounded-lg group bg-gradient-to-br from-primary-400 to-primary-500 group-hover:from-primary-500 group-hover:to-primary-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-200 dark:focus:ring-primary-800"
+                        style="width: auto;">
+                    <span
+                        class="relative flex items-center justify-center p-2 transition-all ease-in duration-75 bg-primary-200 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
+                        </svg>
+                        <span class="sr-only">cart</span>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-primary-500 border-2 border-primary-200 rounded-full -top-2 -right-2 dark:border-gray-900">
+                            {{ cart.data.count }}
+                        </div>
+                    </span>
+                    </Link>
 
-                    <span class="sr-only">cart</span>
-                    <div
-                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
-                        {{ cart.data.count }}</div>
-                    </Link> 
 
 
                 </div>
                 <button v-if="auth.user" type="button"
-                    class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-primary-400 rounded-lg group bg-gradient-to-br from-primary-400 to-primary-500 group-hover:from-primary-400 group-hover:to-primary-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-primary-200 dark:focus:ring-primary-100"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                     data-dropdown-placement="bottom">
-                    <span class="sr-only">Open user menu</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        class="w-8 h-8 rounded-full bg-white" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                    </svg>
-
+                    <span
+                        class="relative flex items-center justify-center p-2 transition-all ease-in duration-75 bg-primary-200 dark:bg-primary-100 rounded-md group-hover:bg-opacity-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            class="w-6 h-6" stroke="currentColor">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <span class="sr-only">user menu</span>
+                    </span>
                 </button>
+
                 <div v-else>
-                    <Link :href="route('login')" type="button"
-                        class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    Login</Link>
+                    <Link :href="route('login')" v-if="canRegister" type="button"
+                        class="shadow-[inset_0_0_0_2px_#9A1750] text-black bg-transparent px-8 py-3 rounded-full tracking-widest uppercase font-bold hover:bg-[#9A1750] hover:text-white dark:text-neutral-200 transition duration-200 me-2 mb-2">
+                    Login
+                    </Link>
+
                     <Link :href="route('register')" v-if="canRegister" type="button"
-                        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    Register</Link>
+                        class="shadow-[inset_0_0_0_2px_#9A1750] text-black bg-transparent px-8 py-3 rounded-full tracking-widest uppercase font-bold hover:bg-[#9A1750] hover:text-white dark:text-neutral-200 transition duration-200 me-2 mb-2">
+                    Register
+                    </Link>
 
                 </div>
 
@@ -67,7 +78,7 @@ const cart = computed(() => usePage().props.cart);
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                            <Link :href="route('dashboard')"
+                            <Link :href="route(auth.user.isAdmin ? 'admin.dashboard' : 'dashboard')"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             Dashboard</Link>
                         </li>
@@ -94,34 +105,40 @@ const cart = computed(() => usePage().props.cart);
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                 <ul
-                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a :href="route('home')"
-                            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                            aria-current="page">Home</a>
+                        <Link :href="route('home')"
+                            class="block py-2 pl-3 pr-4 text-lg text-white bg-primary-400 rounded md:bg-transparent md:text-primary-400 md:p-0 md:dark:text-primary-500"
+                            aria-current="page">Home</Link>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Products</a>
+                        <Link :href="route('products.index')"
+                            class="block py-2 pl-3 pr-4 text-lg text-primary-100 rounded hover:bg-primary-300 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 dark:text-primary-500 md:dark:hover:text-primary-400 dark:hover:bg-primary-100 dark:hover:text-primary-100 md:dark:hover:bg-transparent dark:border-primary-300">
+                        Products</Link>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Brands</a>
+                        <Link :href="route('brands.index')"
+                            class="block py-2 pl-3 pr-4 text-lg text-primary-100 rounded hover:bg-primary-300 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 dark:text-primary-500 md:dark:hover:text-primary-400 dark:hover:bg-primary-100 dark:hover:text-primary-100 md:dark:hover:bg-transparent dark:border-primary-300">
+                        Brands</Link>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Categories</a>
+                        <Link :href="route('categories.index')"
+                            class="block py-2 pl-3 pr-4 text-lg text-primary-100 rounded hover:bg-primary-300 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 dark:text-primary-500 md:dark:hover:text-primary-400 dark:hover:bg-primary-100 dark:hover:text-primary-100 md:dark:hover:bg-transparent dark:border-primary-300">
+                        Categories</Link>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                        <Link :href="route('about')"
+                            class="block py-2 pl-3 pr-4 text-lg text-primary-100 rounded hover:bg-primary-300 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 dark:text-primary-500 md:dark:hover:text-primary-400 dark:hover:bg-primary-100 dark:hover:text-primary-100 md:dark:hover:bg-transparent dark:border-primary-300">
+                        About</Link>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                        <Link :href="route('contact')"
+                            class="block py-2 pl-3 pr-4 text-lg text-primary-100 rounded hover:bg-primary-300 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 dark:text-primary-500 md:dark:hover:text-primary-400 dark:hover:bg-primary-100 dark:hover:text-primary-100 md:dark:hover:bg-transparent dark:border-primary-300">
+                        Contact</Link>
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
 </template>

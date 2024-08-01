@@ -33,12 +33,12 @@ const handleRemove = (file) => {
     console.log(file)
 }
 //prodct from data
-const id = ref('');
+const id = ref('');  // for a single piece of data we use ref('')
 const title = ref('')
 const price = ref('')
 const quantity = ref('')
 const description = ref('')
-const product_images = ref([])
+const product_images = ref([]) //for arrays we use ref([]) 
 const published = ref('')
 const category_id = ref('')
 const brand_id = ref('')
@@ -466,7 +466,7 @@ const deleteProduct = (product, index) => {
                                 <td class="px-4 py-3">${{ product.price }}</td>
 
                                 <td class="px-4 py-3">
-                                    <span v-if="product.inStock == 0"
+                                    <span v-if="product.quantity > 0"
                                         class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">inStock</span>
                                     <span v-else
                                         class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Out
